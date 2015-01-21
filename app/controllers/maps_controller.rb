@@ -18,7 +18,7 @@ class MapsController < ApplicationController
 	def new
 		@list_name = "maps"
 		@map = Map.new
-		@colors = ["red", "blue", "green"]
+		@colors = ["red", "ornage", "brown", "yellow", "green", "blue", "purple", "grey"]
 	end
 		
 	def create
@@ -55,7 +55,7 @@ class MapsController < ApplicationController
 		@map = Map.find(params[:id])
 		@locations = Location.where('map_id=?', @map.id)
 		@locationColors = LocationColor.where(:location_id => @locations.map(&:id))
-		@colors = ["red", "blue", "green"]
+		@colors = ["red", "ornage", "brown", "yellow", "green", "blue", "purple", "grey"]
 	end
 
 	def update
