@@ -172,7 +172,7 @@ class MapsController < ApplicationController
 	def getMapInfo
 		map = Map.find(params[:mapID])
 		locations = Location.where('map_id=?', map.id).map(&:name)
-		colors = LocationColor.joins(:location).where('map_id', map.id).map(&:color).uniq
+		colors = LocationColor.joins(:location).where('map_id=?', map.id).map(&:color).uniq
 		hash = {locations: locations, team_count: map.team_count, colors: colors}
 		return render :text => hash.to_json
 	end
