@@ -5,7 +5,9 @@
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
-  <link rel="shortcut icon" href="/assets/icon.ico">
+  
+  <link rel="icon" href="<%= image_path 'icon.ico' %>" type="image/ico" />
+  <link rel="shortcut icon" href="<%= image_path 'icon.ico' %>" type="image/ico" /
 </head>
 <body>
 
