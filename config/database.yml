@@ -10,13 +10,22 @@
 #   http://dev.mysql.com/doc/refman/5.0/en/old-client.html
 #
 default: &default
-  adapter: mysql2
-  encoding: utf8
+  adapter: postgresql
+  encoding: unicode
+  # For details on connection pooling, see rails configuration guide
+  # http://guides.rubyonrails.org/configuring.html#database-pooling
+  host:     localhost
   pool: 5
-  username: root
-  password: password
-  host: localhost
-  socket: /Applications/XAMPP/xamppfiles/var/mysql/mysql.sock
+  username: postgres
+  password: Karim999
+
+  #adapter: mysql2
+  #encoding: utf8
+  #pool: 5
+  #username: root
+  #password: password
+  #host: localhost
+  #socket: /Applications/XAMPP/xamppfiles/var/mysql/mysql.sock
 
 development:
   <<: *default
