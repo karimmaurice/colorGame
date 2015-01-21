@@ -31,6 +31,7 @@ gem 'devise'
 gem 'simple_form'
 gem "paperclip"
 gem 'json'
+gem 'pg'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
