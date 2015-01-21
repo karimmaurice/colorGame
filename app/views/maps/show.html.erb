@@ -1,0 +1,58 @@
+<!--Header-->
+<div style="margin-bottom:30px">
+	<h1><%= @map.name %></h1>
+</div>
+<!--Body-->
+<div>
+	<table class="table table-hover" style="margin-bottom:0">
+		<thead>
+			<tr>
+				<th class="span6" style="color:#444">Property</th> 
+				<th class="span6" style="color:#444">Value</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>Name</td>
+				<td><%=@map.name%></td>
+			</tr>
+			<tr>
+				<td>Map</td>
+				<td><a href="<%=@map.image.url%>" target="_blank">view image</a></td>
+			</tr>
+			<tr>
+				<td>Number Of Teams</td>
+				<td><%=@map.team_count%></td>
+			</tr>
+			<tr>
+				<td>Number Of Locations</td>
+				<td><%=@locations.count%></td>
+			</tr>
+			<%i=1%>
+			<%@locations.each do |loc|%>
+				<tr>
+					<td>Location <%=i%> Name</td>
+					<td><%=loc.name%></td>
+				</tr>
+				<%locImages = @locationColors.where('location_id=?', loc.id)%>
+				<%j=1%>
+				<%locImages.each do |l|%>
+					<tr>
+						<td>Team <%=j%></td>
+						<%if l.image_file_name != nil%>
+							<td><a href="<%=l.image.url%>" target="_blank">view image</a></td>
+						<%else%>
+							<td>(No Image)</td>
+						<%end%>
+					</tr>
+					<%j +=1 %>
+				<%end%>
+				<%i +=1 %>
+			<%end%>
+		</tbody>
+	</table>
+</div>
+<%= link_to "Back", maps_path, :class => "btn", :style => "margin: 20px 0"%>
+<%= link_to "Edit", edit_map_path(@map), :class => "btn btn-primary", :style => "margin: 20px 5px"%>
+	
+

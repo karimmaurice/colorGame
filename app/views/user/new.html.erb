@@ -1,0 +1,15 @@
+<!--Header-->
+<div style="margin-bottom:30px">
+	<h1>New User</h1>
+</div>
+<!--Body-->
+<%= simple_form_for @user, :url => { :action => 'create' } do |f| %>
+	<!--Name-->
+	<%= f.input :name, required: true, input_html: { :autocomplete => "off" } %>
+	<!--email-->
+	<%= f.input :email, required: true, input_html: { :autocomplete => "off" } %>
+	<!--password-->
+	<%= f.input :password, required: true, input_html: { :autocomplete => "off", type:"text" } %>
+	<!--submit button-->
+  	<div> <%= f.button :submit, :id => "submit", :class =>"btn", :style =>"margin-top:20px" %> </div>
+<% end %>

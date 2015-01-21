@@ -1,0 +1,63 @@
+<!--Header-->
+<div style="margin-bottom:30px">
+	<h1><%=@game.name%></h1>
+</div>
+<!--Body-->
+<%= simple_form_for @game do |f| %>
+	<!--Name-->
+	<%= f.input :name, required: true, input_html: { :autocomplete => "off" } %> 
+	<!--Ref-->
+	<%= f.input :user_id, label: "Game Admin", required: true, collection: @users, prompt: "Select Game Admin", input_html: {  } %>
+	<!--Pass Code-->
+	<%= f.input :pass_code, required: true, input_html: { :autocomplete => "off", type: "number" } %>
+	<!--Map-->
+	<div style="margin:15px 0">
+		<span>Map:</span>
+		<%=@game.map.name%>
+	</div>
+	<!--icon-->
+	<div style="margin-bottom:10px">
+		<label>Overlay:</label>
+		<div>
+			<%= f.file_field :image, required: false %>
+			<a href="<%=@game.image.url%>" target="_blank">view image</a>
+		</div>
+	</div>
+	<div id="details">
+		<!--challenges-->
+		<div style='margin: 10px 0'>Challenges:</div>
+		<%i = 0%>
+		<%@locations.each do |location|%>
+			<span style='margin-right:10px'><%=location.name%></span>
+			<select class='select required combobox1' name='location[]'>
+		  		<option value='-1'>Select Challenge</option>
+		  		<%@challenges.each do |challenge|%>
+		  			<option value='<%= challenge.id %>' <%if @locChallenges[i] and @locChallenges[i].challenge_id == challenge.id%>selected<%end%>> <%= challenge.name %> </option>
+		  		<%end%>
+		  	</select></br>
+		  	<%i += 1%>
+		<%end%>
+		<!--Teams-->
+		<div style='margin: 10px 0'>Teams:</div>
+		<%i = 1%>
+		<%@teams.each do |team|%>
+			<span style='margin-right:10px'>Team <%=i%></span>
+    			<input type='text' value='<%=team.name%>' placeholder='Name' name='teamName[]' style="margin-right:10px">
+    			<select class='select required combobox1' name='teamColor[]'>
+		  				<option value='-1'>Select Color</option>
+		  				<%@colors.each do |color|%>" +
+		  					<option value='<%= color %>' <%if color == team.color%>selected<%end%> > <%= color %> </option>
+		  				<%end%>
+		  			</select></br>
+    		<%i += 1%>
+		<%end%>
+	</div>
+	<!--submit button-->
+  	<div> 
+  		<%= link_to "Cancel", games_path, :class => "btn", :style => "margin-top: 20px; margin-right:5px"%>
+  		<%= f.button :submit, :id => "submit", :class =>"btn btn-primary", :style =>"margin-top:20px" %>  
+  	</div>
+<% end %>
+<script>
+$(".hidden").hide()
+</script>

@@ -1,0 +1,21 @@
+
+
+<div style="margin-top:12px">
+	<a href="/games"><%= image_tag('logo.png', :style => "width:120px ;margin-right:30px") %></a>
+
+	<% if current_user and current_user.role == "Admin" %>
+		<span style="float:right; margin-top:5px">
+			<span class="list2"><%= current_user.name%></span>
+			<%=link_to "logout", destroy_user_session_path, :class => "list", :style => "margin-left:30px", method: :delete%>
+		</span>
+
+		<a href="/maps" <%if !@list_name.nil? && @list_name == "maps"%>class=" list listActive"<%else%>class="list"<%end%> >Maps</a> 
+
+		<a href="/challenges" <%if !@list_name.nil? && @list_name == "challenges"%>class="list listActive"<%else%>class="list"<%end%> >Challenges</a>
+
+		<a href="/games" <%if !@list_name.nil? && @list_name == "games"%>class=" list listActive"<%else%>class="list"<%end%> >Games</a>
+
+		<a href="/user" <%if !@list_name.nil? && @list_name == "users"%>class="list listActive"<%else%>class="list"<%end%> >Users</a> 
+
+	<% end %>
+</div>

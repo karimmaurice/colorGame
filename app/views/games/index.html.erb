@@ -1,0 +1,33 @@
+<!--Header-->
+<div style="margin-bottom:30px">
+	<!--add new button-->
+	<div><%= button_to "add game", new_game_path, :class => "btn btn-primary", :style => "float: right; margin:14px 14px 0 0", :method => :get%>
+	</div>
+
+	<h1>Games</h1>
+</div>
+<!--Table-->
+<div class="frame">
+	<table class="table table-hover" style="margin-bottom:0">
+		<thead>
+			<tr>
+				<th class="span3" style="color:#444">Name</th> 
+				<th class="span3" style="color:#444">Admin</th>
+				<th class="span4" style="color:#444">Map</th> 
+				<th class="span2" style="color:#444">Manage</th>
+			</tr>
+		</thead>
+		<tbody>
+			<% @games.each do |game| %>
+				<tr>
+					<td> <%= link_to game.name, game  %> </td>
+					<td> <%= game.user.name %> </td>
+					<td> <%= game.map.name %> </td>
+					<td> <%= link_to "edit", edit_game_path(game), :style => "margin-right: 5px"%> 
+						 <%= link_to "del", game, :method => :delete, data: { confirm: 'Are you sure you want to delete this game?' } %> </td>
+				</tr>
+			<% end %>
+		</tbody>
+	</table>
+</div>	
+

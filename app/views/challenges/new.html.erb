@@ -1,0 +1,22 @@
+<!--Header-->
+<div style="margin-bottom:30px">
+	<h1>New Challenge</h1>
+</div>
+<!--Body-->
+<%= simple_form_for @challenge do |f| %>
+	<!--Name-->
+	<%= f.input :name, required: true, input_html: { :autocomplete => "off" } %>
+	<!--Points-->
+	<%= f.input :points, required: true, input_html: { :autocomplete => "off" } %>
+	<!--Player Count-->
+	<%= f.input :player_count, label: "Minimum Number of Players", required: true, input_html: { :autocomplete => "off" } %>
+	<!--icon-->
+	<div style="margin-bottom:10px">
+		<label>Icon:</label>
+		<div><%= f.file_field :image, required: true %></div>
+	</div>
+	<!--Description-->
+	<%= f.input :description, required: true, input_html: { style: "width:435px; height: 135px", :autocomplete => "off" } %>
+	<!--submit button-->
+  	<div> <%= f.button :submit, :id => "submit", :class =>"btn", :style =>"margin-top:20px" %> </div>
+<% end %>

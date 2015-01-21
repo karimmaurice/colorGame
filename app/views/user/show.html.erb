@@ -1,0 +1,29 @@
+<!--Header-->
+<div style="margin-bottom:30px">
+	<h1><%= @user.name %></h1>
+</div>
+<!--Body-->
+<div>
+	<table class="table table-hover" style="margin-bottom:0">
+		<thead>
+			<tr>
+				<th class="span6" style="color:#444">Property</th> 
+				<th class="span6" style="color:#444">Value</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>Name</td>
+				<td><%=@user.name%></td>
+			</tr>
+			<tr>
+				<td>Email</td>
+				<td><%=@user.email%></td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<%= link_to "Back", user_index_path, :class => "btn", :style => "margin: 20px 0"%>
+<%= link_to "Edit", edit_user_path(@user), :class => "btn btn-primary", :style => "margin: 20px 5px"%>
+	
+

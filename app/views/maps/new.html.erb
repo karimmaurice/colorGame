@@ -1,0 +1,106 @@
+<!--Header-->
+<div style="margin-bottom:30px">
+	<h1>New Map</h1>
+</div>
+<!--Body-->
+<%= simple_form_for @map do |f| %>
+	<!--name-->
+	<%= f.input :name, required: true, input_html: { :autocomplete => "off" } %>
+	<!--map-->
+	<input type="text" name="map[image]" value="-1" class="hidden" style="visibility:hidden">
+	<div style="margin:15px 0">
+		<label>Map:</label>
+		<div><%= f.file_field :image, required: true %></div>
+	</div>
+	<!--locations-->
+	<div style="margin-bottom:20px">
+		Teams:
+		<input type="number" name="map[team_count]" min="1" max="100" style="width:30px" value="1" onChange="teams(this.value);">
+		<div id="teamsDiv">
+		</div>
+	</div>
+	<!--locations-->
+	Locations:
+	<input type="number" min="1" max="100" style="width:30px" value="1" onChange="locations(this.value);">
+	<div id="locations">
+	</div>
+	<!--submit button-->
+  	<div> <%= f.button :submit, :id => "submit", :class =>"btn", :style =>"margin-top:20px" %> </div>
+<% end %>
+
+<script>
+var locationCount = 0;
+var teamCount = 0;
+function locations(count){
+	if (count > locationCount){
+		var newdiv = document.createElement('div');
+    	newdiv.innerHTML = 
+    		"<div class='accordion-group'>"+
+			    "<div class='accordion-heading'>"+
+			        "<span class='accordion-toggle' onClick='accordionToggle(collapse"+locationCount+")'>Location "+(locationCount+1)+"</span>"+
+			    "</div>"+
+		        "<div id='collapse"+locationCount+"' class='accordion-inner' style='padding-left:25px'>"+ 
+		        	"<input type='text' name='locations["+locationCount+"[name]]' placeholder='Name'>"+
+		        	"<div id='teams"+locationCount+"'>"+
+		        	"</div>"+
+		        "</div>"+
+	        "</div>";
+    		
+    	document.getElementById("locations").appendChild(newdiv);
+    	for (i=0; i<teamCount; i++){
+    		var newdiv = document.createElement('div');
+    		newdiv.innerHTML = 
+    			"<div class='hidden'><input type='text' name='locations["+locationCount+"[image]["+i+"]' value='-1' style='visibility:hidden'></div>"+
+    			"<span style='margin-right:10px'>Team "+(i+1)+"</span>"+
+    			"<input type='file' name='locations["+locationCount+"[image]["+i+"]'>";
+    		document.getElementById("teams"+locationCount).appendChild(newdiv);
+    	}
+    	locationCount++;
+    	$(".hidden").hide()
+	}else{
+		document.getElementById("locations").lastChild.remove();
+		locationCount--;
+	}
+}
+function teams(count){
+	if (count > teamCount){
+    	for (i=0; i<locationCount; i++){
+    		var newdiv = document.createElement('div');
+    		newdiv.innerHTML = 
+    			"<div class='hidden'><input type='text' name='locations["+i+"[image]["+teamCount+"]' value='-1' style='visibility:hidden'></div>"+
+    			"<span style='margin-right:10px'>Team "+(teamCount+1)+"</span>"+
+    			"<input type='file' name='locations["+i+"[image]["+teamCount+"]'>";
+    		document.getElementById("teams"+i).appendChild(newdiv);
+    	}
+    	teamCount++;
+    	//teams
+		var newdiv = document.createElement('div');
+		newdiv.innerHTML = 
+			"<span style='margin-right:10px'>Team "+(teamCount)+" color</span>"+
+			"<select class='select required combobox1' name='teamColor[]'>"+
+  				"<option value='-1'>Select Color</option>"+
+  				"<%@colors.each do |color|%>" +
+  					"<option value='<%= color %>'> <%= color %> </option>"+
+  				"<%end%>"+
+  			"</select></br>";
+		document.getElementById("teamsDiv").appendChild(newdiv);
+    	$(".hidden").hide()
+	}else{
+		for (i=0; i<locationCount; i++){
+    		document.getElementById("teams"+i).lastChild.remove();
+    	}
+    	document.getElementById("teamsDiv").lastChild.remove();
+		teamCount--;
+	}
+}
+function accordionToggle(div){
+	if ($(div).is(":visible")) {
+		$(div).hide();
+	}else{
+		$(div).show();
+	}
+}
+$(".hidden").hide()
+teams(1);
+locations(1);
+</script>
